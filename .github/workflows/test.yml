@@ -1,0 +1,31 @@
+name: Test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os:   [windows-latest]
+        ruby: ['3.2']
+      fail-fast: false
+
+    runs-on: ${{matrix.os}}
+
+    steps:
+      - name: ruby ${{matrix.ruby}}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{matrix.ruby}}
+
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: packages
+        run: |
+          pacman -S $MINGW_PACKAGE_PREFIX-openal
+          pkg-config openal --cflags
