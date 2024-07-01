@@ -27,5 +27,5 @@ jobs:
 
       - name: packages
         run: |
-          pacman -S $MINGW_PACKAGE_PREFIX-openal
+          pacman -S mingw-w64-ucrt-x86_64-openal
           pkg-config openal --cflags
